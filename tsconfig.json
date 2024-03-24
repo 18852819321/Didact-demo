@@ -1,0 +1,7 @@
+{
+  "compilerOptions": {
+    "jsx": "react", // 或"preserve"，如果你使用的是其他JSX转换工具
+    // 其他TypeScript编译器选项...
+  },
+  // 包含和排除文件或目录...
+}
