@@ -4,7 +4,7 @@
 
 ### 教程中封装useState的问题
 
-```
+```javascript
 function useState(initial) {
   const oldHook =
     wipFiber.alternate &&
@@ -17,7 +17,18 @@ function useState(initial) {
 ​
   const actions = oldHook ? oldHook.queue : []
   actions.forEach(action => {
+    /**
+     * 此处action只能为function,也就是说setState只支持传入function
+     * 例如const [count, setCount] = Didact.useState(0)
+     * setCount只能setCount(count => count + 1)而不能setCount(count + 1)
+     */
     hook.state = action(hook.state)
+    // 修改后
+    if (typeof action === "function") {
+      hook.state = action(hook.state)
+    } else {
+      hook.state = action
+    }
   })
 ​
   const setState = action => {
